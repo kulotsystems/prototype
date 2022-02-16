@@ -42,12 +42,14 @@
             </tr>
             </thead>
             <tbody>
-{{--            @foreach ($filterData as $filterDatas)--}}
-{{--                <tr>--}}
-{{--                    <td>{{ $filterDatas->rname }}</td>--}}
-{{--                    <td>{{ $filterDatas->description }}</td>--}}
-{{--                </tr>--}}
-{{--            @endforeach--}}
+            @if(isset($filterData))
+                @foreach ($filterData as $filterDatas)
+                    <tr>
+                        <td>{{ $filterDatas->rname }}</td>
+                        <td>{{ $filterDatas->description }}</td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>

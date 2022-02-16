@@ -62,7 +62,7 @@ class StudentController extends Controller
         $term = $request->input('search_room');
         $filterData = Room::where('rname','LIKE','%'.$term.'%')
             ->get();
-        dd($filterData);
-        //return view('student.classroom', compact('filterData'));
+        // dd($filterData);
+        return view('student.classroom', compact('filterData'));
     }
 }
