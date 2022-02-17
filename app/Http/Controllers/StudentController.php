@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Enroll;
 use App\Models\Group;
 
 use App\Models\File;
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function membersCreate(Request $request) {
 
         $memdata = new group;
@@ -31,6 +36,10 @@ class StudentController extends Controller
         return redirect()->back()->with('status', 'Group Member Added Successfully');
     }
 
+    /**
+     * @param Request $req
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function fileUpload(Request $req) {
 
         $req->validate([
@@ -50,6 +59,9 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function displayStudentDashboard() {
         //$groups   = Group::all();
         // $files = File::all();
@@ -58,11 +70,34 @@ class StudentController extends Controller
         return view('/dashboard', compact('groups', 'files'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function searchRoom(Request $request) {
         $term = $request->input('search_room');
         $filterData = Room::where('rname','LIKE','%'.$term.'%')
             ->get();
-        // dd($filterData);
         return view('student.classroom', compact('filterData'));
+    }
+
+    public function joinRoom(Request $request) {
+
+        $enroll = new enroll;
+
+        $key = $request->input('mykey');
+        $findKey = Room::where('rkey','LIKE','%'.$key.'%')
+            ->get();
+
+        if($findKey == true){
+            //$rooms = Auth::user()->rooms;
+            $enroll->room_id = $findKey->id;
+            $enroll->user_id = $request->input('user_id');
+            $enroll->save();
+            dd($enroll->room_id);
+//            return back()
+//                ->with('success','You Successfully Join.');
+        }
+
     }
 }

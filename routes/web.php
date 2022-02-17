@@ -46,6 +46,12 @@ Route::controller(StudentController::class)->group(
         })->name('classroom');
 
         Route::post('/classroom', 'searchRoom');
+
+        Route::middleware(['auth:sanctum', 'verified'])->get('/joinroom', function () {
+            return view('student.joinroom');
+        })->name('joinroom');
+
+        Route::post('/joinroom', 'joinRoom');
     }
 );
 

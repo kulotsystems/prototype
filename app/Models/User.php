@@ -10,6 +10,10 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Enroll;
+
+use App\Models\Room;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -79,5 +83,21 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->hasMany(Group::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function enrolls()
+    {
+        return $this->hasMany(Enroll::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
     }
 }

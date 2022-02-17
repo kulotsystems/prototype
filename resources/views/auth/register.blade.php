@@ -19,7 +19,16 @@
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
-            
+            <div class="mt-4">
+                <x-jet-label for="email" value="{{ __('Register as:') }}" />
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 400px; border-color: lightgray; border-radius: 5px; " name="role">
+                    <option value="0">Student</option>
+                    <option value="1">Instructor</option>
+                    <option value="2">Evaluator</option>
+                </select>
+            </div>
+
+
 
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
